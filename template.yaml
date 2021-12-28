@@ -1,0 +1,38 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: A starter AWS Lambda function.
+Resources:
+  helloworldlambda:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: app.lambda_handler
+      Runtime: python3.9
+      CodeUri: .
+      Description: A starter AWS Lambda function.
+      MemorySize: 128
+      Timeout: 3
+      Environment:
+        Variables: 
+          TABLE_NAME: !Ref DynamoDBTable 
+          REGION_NAME: 'AWS::Region' 
+      Events:
+        HelloWorldSamApi:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: GET
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref DynamoDBTable   
+  DynamoDBTable:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      AttributeDefinitions: 
+        - AttributeName: greetings 
+          AttributeType: S
+      KeySchema: 
+        - AttributeName: greetings
+          KeyType: HASH    
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
