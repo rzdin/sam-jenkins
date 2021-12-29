@@ -8,7 +8,13 @@ pipeline {
         stash includes: '**/venv/**/*', name: 'venv'
       }
     }
-  
+    stage('Configure sam') {
+      steps {
+        unstash 'venv'
+        sh 'venv/bin/sam build'
+        stash includes: '**/.aws-sam/**/*', name: 'aws-sam'
+      }
+    }
     stage('beta') {
       environment {
         STACK_NAME = 'sam-app-beta-stage'
