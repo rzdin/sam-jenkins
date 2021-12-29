@@ -19,6 +19,7 @@ pipeline {
           unstash 'aws-sam'
           sh 'venv/bin/sam package --stack-name $STACK_NAME -t template.yaml --s3-bucket $S3_BUCKET --output-template-file gen/template-generated.yaml'
       }
+      }
     stage('prod') {
       environment {
         STACK_NAME = 'sam-app-prod-stage'
