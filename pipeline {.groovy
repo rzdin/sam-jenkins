@@ -22,18 +22,4 @@ pipeline {
         }
       }
     }
-    stage('prod') {
-      environment {
-        STACK_NAME = 'sam-app-prod-stage'
-        S3_BUCKET = 'sam-jenkins-demo-us-west-2-rana-ziauddin'
-      }
-      steps {
-        withAWS(credentials: 'AWSReservedSSO_AdministratorAccess_564bcbbbca5e5655/rzdin@enquizit.com', region: 'us-east-1') {
-          unstash 'venv'
-          unstash 'aws-sam'
-          sh 'venv/bin/sam deploy --stack-name $STACK_NAME -t template.yaml --s3-bucket $S3_BUCKET --capabilities CAPABILITY_IAM'
-        }
-      }
-    }
-  }
 
