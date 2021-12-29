@@ -38,7 +38,7 @@ pipeline {
         withAWS(credentials: 'AWSReservedSSO_AdministratorAccess_564bcbbbca5e5655/rzdin@enquizit.com', region: 'us-east-2') {
           unstash 'venv'
           unstash 'aws-sam'
-          sh 'venv/bin/sam deploy --stack-name $STACK_NAME -t template-generated.yaml --s3-bucket $S3_BUCKET --capabilities CAPABILITY_IAM'
+          sh 'venv/bin/sam deploy --stack-name $STACK_NAME -t gen/template-generated.yaml --s3-bucket $S3_BUCKET --capabilities CAPABILITY_IAM'
         }
       }
     }
