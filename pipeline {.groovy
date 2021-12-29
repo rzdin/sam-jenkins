@@ -21,7 +21,7 @@ pipeline {
         S3_BUCKET = 'sam-jenkins-demo-us-east-2-ranaziauddin'
       }
       steps {
-        withAWS(credentials: 'rzdin@enquizit.com', region: 'us-east-2') {
+        withAWS(credentials: 'AWSReservedSSO_AdministratorAccess_564bcbbbca5e5655/rzdin@enquizit.com', region: 'us-east-2') {
           unstash 'venv'
           unstash 'aws-sam'
           sh 'venv/bin/sam package  -t template.yaml --s3-bucket $S3_BUCKET --output-template-file gen/template-generated.yaml'
@@ -35,7 +35,7 @@ pipeline {
         S3_BUCKET = 'sam-jenkins-demo-us-east-2-ranaziauddin'
       }
       steps {
-        withAWS(credentials: 'rzdin@enquizit.com', region: 'us-east-2') {
+        withAWS(credentials: 'AWSReservedSSO_AdministratorAccess_564bcbbbca5e5655/rzdin@enquizit.com', region: 'us-east-2') {
           unstash 'venv'
           unstash 'aws-sam'
           sh 'venv/bin/sam deploy --stack-name $STACK_NAME -t template-generated.yaml --s3-bucket $S3_BUCKET --capabilities CAPABILITY_IAM'
