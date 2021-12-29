@@ -13,12 +13,12 @@ pipeline {
         STACK_NAME = 'sam-app-prod-stage'
         S3_BUCKET = 'sam-jenkins-demo-us-east-2-ranaziauddin'
       }
+    }
       steps {
         withAWS(credentials: 'AWSReservedSSO_AdministratorAccess_564bcbbbca5e5655/rzdin@enquizit.com', region: 'us-east-2') {
           unstash 'venv'
           unstash 'aws-sam'
           sh 'venv/bin/sam package --stack-name $STACK_NAME -t template.yaml --s3-bucket $S3_BUCKET --output-template-file gen/template-generated.yaml'
-      }
       }
     stage('prod') {
       environment {
